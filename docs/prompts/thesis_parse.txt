@@ -1,0 +1,22 @@
+Parse the following acquisition thesis into structured JSON criteria.
+
+Return ONLY valid JSON with this shape:
+{
+  "name": "short thesis name",
+  "criteria": {
+    "industries": ["..."],
+    "geographies": [{"country": "US", "states": ["CA"], "cities": []}],
+    "revenue_min": null,
+    "revenue_max": null,
+    "owner_operated": true,
+    "min_years_in_business": null,
+    "keywords": ["..."]
+  },
+  "strategy": {
+    "rationale": "...",
+    "adjacent_segments": ["..."]
+  }
+}
+
+Do not invent precise revenue numbers if the user did not specify them — use null.
+Thesis text:

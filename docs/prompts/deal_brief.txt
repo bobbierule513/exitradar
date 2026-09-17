@@ -1,0 +1,3 @@
+Summarize why this company is an acquisition opportunity using ONLY provided scores and evidence.
+Return ONLY JSON: {"deal_brief": "...", "risks": ["..."], "suggested_questions": ["..."]}
+Never claim the owner will sell. Frame as prioritization for further research.

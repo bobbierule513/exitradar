@@ -1,0 +1,39 @@
+# Git / IDE
+.git
+.gitignore
+.cursor
+.vscode
+.idea
+**/.DS_Store
+
+# Python
+.venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+**/*.egg-info
+.coverage
+htmlcov
+
+# Node
+**/node_modules
+apps/web/dist
+npm-debug.log*
+
+# Env / secrets
+.env
+.env.local
+**/.env
+!**/.env.example
+
+# Docs / media bulky
+*.png
+!docs/ExitRadar_ERD.png
+agent-transcripts
+eval_results/*
+!eval_results/.gitkeep
+
+# Local artifacts
+notebooks/.ipynb_checkpoints

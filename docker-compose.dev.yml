@@ -1,0 +1,48 @@
+# Hot-reload development overlay
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+#
+# Replaces nginx web with Vite, and enables API --reload with bind mounts.
+
+services:
+  api:
+    environment:
+      ENVIRONMENT: development
+      CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173,http://localhost:8080
+    volumes:
+      - ./apps/api:/app/apps/api
+      - ./workers:/app/workers
+      - ./docs:/app/docs
+    command:
+      [
+        "uvicorn",
+        "apps.api.app.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000",
+        "--reload",
+      ]
+
+  worker:
+    environment:
+      ENVIRONMENT: development
+    volumes:
+      - ./apps/api:/app/apps/api
+      - ./workers:/app/workers
+      - ./docs:/app/docs
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile.dev
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    volumes:
+      - ./apps/web:/app
+      - web_node_modules:/app/node_modules
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173"]
+
+volumes:
+  web_node_modules:

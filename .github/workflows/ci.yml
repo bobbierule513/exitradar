@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install API deps
+        run: pip install -r apps/api/requirements.txt
+      - name: Ruff
+        run: ruff check apps/api/app workers --ignore E501
+        continue-on-error: true
+      - name: Pytest
+        run: |
+          export PYTHONPATH=$PWD
+          pytest apps/api/tests/ -q --tb=short
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+          DEMO_MODE: "true"
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_BASE_URL: http://localhost:8000
+          VITE_SUPABASE_URL: https://example.supabase.co
+          VITE_SUPABASE_ANON_KEY: test

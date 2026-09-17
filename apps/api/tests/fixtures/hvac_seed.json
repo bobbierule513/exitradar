@@ -1,0 +1,14 @@
+[
+  {
+    "canonical_name": "Valley Climate Control",
+    "domain": "valleyclimate.example",
+    "industry": "HVAC",
+    "geo": {"city": "Phoenix", "state": "AZ", "country": "US"}
+  },
+  {
+    "canonical_name": "Gulf Coast Air Pros",
+    "domain": "gulfcoastairpros.example",
+    "industry": "HVAC",
+    "geo": {"city": "Tampa", "state": "FL", "country": "US"}
+  }
+]
